@@ -53,7 +53,7 @@
                 </tr>
             </thead>
             <tbody>
-                <% if (activities && activities.length > 0) { %>
+                <% if (typeof activities !== 'undefined' && activities && activities.length > 0) { %>
                     <% activities.forEach((activity, index) => { %>
                         <tr>
                             <th scope="row"><%= index + 1 %></th>
