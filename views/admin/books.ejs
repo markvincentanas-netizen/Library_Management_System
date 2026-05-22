@@ -1,0 +1,166 @@
+<div class="mb-4">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBookModal">
+        <i class="fas fa-plus me-2"></i>Add New Book
+    </button>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Category</th>
+                    <th>ISBN</th>
+                    <th>Qty</th>
+                    <th>Shelf</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% books.forEach(book => { %>
+                    <tr>
+                        <td><%= book.title %></td>
+                        <td><%= book.author %></td>
+                        <td>
+                            <% if (book.category_name) { %>
+                                <%= book.category_name %>
+                            <% } else { %>
+                                <span class="text-muted">No Category</span>
+                            <% } %>
+                        </td>
+                        <td><%= book.isbn %></td>
+                        <td><%= book.quantity %></td>
+                        <td><%= book.shelf %></td>
+                        <td>
+                            <span class="badge <%= book.status === 'available' ? 'bg-success' : 'bg-danger' %>">
+                                <%= book.status %>
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-info text-white" data-bs-toggle="modal" data-bs-target="#editBookModal<%= book.id %>">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <% if (user.role === 'admin') { %>
+                                <form action="/books/<%= book.id %>?_method=DELETE" method="POST" class="d-inline">
+                                    <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            <% } %>
+                        </td>
+                    </tr>
+
+                    <!-- Edit Modal -->
+                    <div class="modal fade" id="editBookModal<%= book.id %>" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Edit Book</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <form action="/books/<%= book.id %>?_method=PUT" method="POST">
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label class="form-label">Title</label>
+                                            <input type="text" class="form-control" name="title" value="<%= book.title %>" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Author</label>
+                                            <input type="text" class="form-control" name="author" value="<%= book.author %>" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Category</label>
+                                            <select class="form-select" name="category_id">
+                                                <% categories.forEach(cat => { %>
+                                                    <option value="<%= cat.id %>" <%= book.category_id === cat.id ? 'selected' : '' %>><%= cat.name %></option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">ISBN</label>
+                                            <input type="text" class="form-control" name="isbn" value="<%= book.isbn %>">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">Quantity</label>
+                                                <input type="number" class="form-control" name="quantity" value="<%= book.quantity %>" required>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">Shelf</label>
+                                                <input type="text" class="form-control" name="shelf" value="<%= book.shelf %>">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Status</label>
+                                            <select class="form-select" name="status">
+                                                <option value="available" <%= book.status === 'available' ? 'selected' : '' %>>Available</option>
+                                                <option value="not_available" <%= book.status === 'not_available' ? 'selected' : '' %>>Not Available</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Add Modal -->
+<div class="modal fade" id="addBookModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New Book</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="/books/add" method="POST">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Title</label>
+                        <input type="text" class="form-control" name="title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Author</label>
+                        <input type="text" class="form-control" name="author" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Category</label>
+                        <select class="form-select" name="category_id">
+                            <% categories.forEach(cat => { %>
+                                <option value="<%= cat.id %>"><%= cat.name %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">ISBN</label>
+                        <input type="text" class="form-control" name="isbn">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Quantity</label>
+                            <input type="number" class="form-control" name="quantity" value="1" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Shelf</label>
+                            <input type="text" class="form-control" name="shelf">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add Book</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

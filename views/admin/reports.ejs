@@ -1,0 +1,48 @@
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h5 class="card-title mb-4">Most Borrowed Books</h5>
+                <ul class="list-group list-group-flush">
+                    <% mostBorrowed.forEach(item => { %>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <%= item.title %>
+                            <span class="badge bg-primary rounded-pill"><%= item.borrow_count %> times</span>
+                        </li>
+                    <% }) %>
+                    <% if (mostBorrowed.length === 0) { %>
+                        <li class="list-group-item">No data available</li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h5 class="card-title mb-4">Fine Statistics</h5>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Total Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% fineStats.forEach(stat => { %>
+                                <tr>
+                                    <td class="text-capitalize"><%= stat.status %></td>
+                                    <td>$<%= parseFloat(stat.total || 0).toFixed(2) %></td>
+                                </tr>
+                            <% }) %>
+                            <% if (fineStats.length === 0) { %>
+                                <tr><td colspan="2">No fines recorded</td></tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

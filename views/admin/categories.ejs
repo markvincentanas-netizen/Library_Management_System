@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Add Category</h5>
+                <form action="/categories/add" method="POST">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Category Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Add Category</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Categories List</h5>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% categories.forEach(cat => { %>
+                            <tr>
+                                <td><%= cat.id %></td>
+                                <td><%= cat.name %></td>
+                                <td>
+                                    <% if (user.role === 'admin') { %>
+                                        <form action="/categories/<%= cat.id %>?_method=DELETE" method="POST" class="d-inline">
+                                            <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    <% } %>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

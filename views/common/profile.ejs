@@ -1,0 +1,38 @@
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">My Profile</h5>
+            </div>
+            <div class="card-body">
+                <form action="/profile" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" name="name" value="<%= userProfile.name %>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-control" name="email" value="<%= userProfile.email %>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Role</label>
+                        <input type="text" class="form-control" value="<%= userProfile.role %>" disabled>
+                        <div class="form-text">Role cannot be changed by the user.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">New Password (leave blank to keep current)</label>
+                        <input type="password" class="form-control" name="password">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Member Since</label>
+                        <input type="text" class="form-control" value="<%= new Date(userProfile.created_at).toLocaleDateString() %>" disabled>
+                    </div>
+                    <hr>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

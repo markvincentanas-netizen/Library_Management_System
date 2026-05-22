@@ -1,0 +1,48 @@
+<div class="bg-dark border-right text-white" id="sidebar-wrapper">
+    <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">
+        <i class="fas fa-book-reader me-2"></i>LMS
+    </div>
+    <div class="list-group list-group-flush my-3">
+        <% if (user) { %>
+            <a href="/<%= user.role %>/dashboard" class="list-group-item list-group-item-action bg-transparent second-text fw-bold <%= title.includes('Dashboard') ? 'active' : '' %>">
+                <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+            </a>
+            
+            <% if (user.role === 'admin' || user.role === 'librarian') { %>
+                <a href="/books" class="list-group-item list-group-item-action bg-transparent second-text fw-bold <%= title === 'Books' ? 'active' : '' %>">
+                    <i class="fas fa-book me-2"></i>Books
+                </a>
+                <a href="/categories" class="list-group-item list-group-item-action bg-transparent second-text fw-bold <%= title === 'Categories' ? 'active' : '' %>">
+                    <i class="fas fa-list me-2"></i>Categories
+                </a>
+            <% } %>
+
+            <% if (user.role === 'admin') { %>
+                <a href="/users" class="list-group-item list-group-item-action bg-transparent second-text fw-bold <%= title === 'User Management' ? 'active' : '' %>">
+                    <i class="fas fa-users me-2"></i>User Management
+                </a>
+                <a href="/reports" class="list-group-item list-group-item-action bg-transparent second-text fw-bold <%= title === 'Reports & Analytics' ? 'active' : '' %>">
+                    <i class="fas fa-chart-line me-2"></i>Reports
+                </a>
+            <% } %>
+
+            <a href="/fines" class="list-group-item list-group-item-action bg-transparent second-text fw-bold <%= title === 'Fines & Penalties' ? 'active' : '' %>">
+                <i class="fas fa-hand-holding-usd me-2"></i>Fines
+            </a>
+
+            <% if (user.role === 'member') { %>
+                <a href="/member/browse" class="list-group-item list-group-item-action bg-transparent second-text fw-bold <%= title === 'Browse Books' ? 'active' : '' %>">
+                    <i class="fas fa-search me-2"></i>Browse Books
+                </a>
+            <% } %>
+
+            <a href="/borrow" class="list-group-item list-group-item-action bg-transparent second-text fw-bold <%= title === 'Borrow Records' ? 'active' : '' %>">
+                <i class="fas fa-exchange-alt me-2"></i>Borrow Records
+            </a>
+            
+            <a href="/auth/logout" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold">
+                <i class="fas fa-power-off me-2"></i>Logout
+            </a>
+        <% } %>
+    </div>
+</div>

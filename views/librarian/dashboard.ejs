@@ -1,0 +1,53 @@
+<div class="row g-3 my-2">
+    <div class="col-md-4">
+        <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+            <div>
+                <h3 class="fs-2"><%= stats.books %></h3>
+                <p class="fs-5">Books Inventory</p>
+            </div>
+            <i class="fas fa-book fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+            <div>
+                <h3 class="fs-2 text-warning"><%= stats.pending %></h3>
+                <p class="fs-5">Pending Requests</p>
+            </div>
+            <i class="fas fa-clock fs-1 text-warning border rounded-full bg-light p-3"></i>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+            <div>
+                <h3 class="fs-2"><%= stats.borrows %></h3>
+                <p class="fs-5">Issued Books</p>
+            </div>
+            <i class="fas fa-check-circle fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+        </div>
+    </div>
+</div>
+
+<div class="row my-5">
+    <h3 class="fs-4 mb-3">Quick Actions</h3>
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Process Borrow Request</h5>
+                <p class="card-text">Approve or reject pending borrow requests from members.</p>
+                <a href="/borrow/pending" class="btn btn-primary">View Requests</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Manage Inventory</h5>
+                <p class="card-text">Add new books or update existing book information.</p>
+                <a href="/books" class="btn btn-success">Go to Books</a>
+            </div>
+        </div>
+    </div>
+</div>
