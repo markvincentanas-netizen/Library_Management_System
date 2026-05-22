@@ -10,7 +10,7 @@ const methodOverride = require('method-override');
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
@@ -91,7 +91,7 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 }).on('error', (err) => {
     console.error('Server failed to start:', err);
 });
